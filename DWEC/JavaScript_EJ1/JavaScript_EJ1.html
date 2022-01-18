@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let contenido = prompt("Introduce el nombre,dos apellidos y año de nacimiento");
+
+        let contenidoMayus = contenido.toUpperCase();
+
+        let arrayContenidoSeparado = contenidoMayus.split(' ');
+
+            document.write("<p>Nombre:"+arrayContenidoSeparado[0]+"</p>");
+            document.write("<p>Primer Apellido:"+arrayContenidoSeparado[1]+"</p>");
+            document.write("<p>Segundo Apellido:"+arrayContenidoSeparado[2]+"</p>");
+            document.write("<p>Fecha Nacimiento:"+arrayContenidoSeparado[3]+"</p>");
+
+            let contenidoMin = contenido.toLowerCase();
+            let arrayContenidoSeparadoMin = contenidoMin.split(' ');
+
+            let nombreUsuario="";
+            nombreUsuario += arrayContenidoSeparadoMin[0].slice(0,1);
+            nombreUsuario += arrayContenidoSeparadoMin[1];
+            nombreUsuario += arrayContenidoSeparadoMin[2].slice(0,1);
+            nombreUsuario += arrayContenidoSeparadoMin[3].slice(2,4);
+
+            document.write("<p>Nombre Usuario:"+nombreUsuario+"</p>");
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
