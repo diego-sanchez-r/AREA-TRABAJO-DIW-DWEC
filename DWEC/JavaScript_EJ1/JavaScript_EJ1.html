@@ -28,6 +28,14 @@
 
             document.write("<p>Nombre Usuario:"+nombreUsuario+"</p>");
 
+            let numeroVocales = (arrayContenidoSeparado[0]+arrayContenidoSeparado[1]+arrayContenidoSeparado[2]).match(/[aeiou]/gi).length;
+
+            let numeroTotal = (arrayContenidoSeparado[0]+arrayContenidoSeparado[1]+arrayContenidoSeparado[2]+arrayContenidoSeparado[3]).length;
+
+            let numeroNomApe = (arrayContenidoSeparado[0]+arrayContenidoSeparado[1]+arrayContenidoSeparado[2]).length;
+            document.write("<p>Numero De Vocales: "+numeroVocales+"</p>");
+            document.write("<p>Tamaño Total: "+numeroTotal+"</p>");
+            document.write("<p>Tamaño Nombre y Apellidos: "+numeroNomApe+"</p>");
 
     </script>
 </head>
