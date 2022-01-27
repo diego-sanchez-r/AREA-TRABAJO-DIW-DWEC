@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <header>
+        <h1>KebaCard</h1>
+        <img src="logo.png" id="logo">
+    </header>
+    <div class="tabla-informacion">
+        <div class="tabla-informacion__caja">
+            <div>
+                <div id="nick"></div>
+            </div>
+            <div>
+                <div><span class="caja" id="puntuacionTexto">Puntuación</span></div>
+                <div><span class="contador" id="contador-puntos">0</span></div>
+            </div>
+            <div>
+                <div class="caja">Errores</div>
+                <div><span class="contador" id="contador-errores">0</span></div>
+            </div>
+        </div>
+        <div class="tabla-informacion__caja">
+            <div>
+                <div class="caja">Top player</div>
+                <div class="contador" id="ranking-jugador"></div>
+            </div>
+            <div>
+                <div class="caja">Puntuación</div>
+                <div class="contador" id="ranking-puntuacion"></div>
+            </div>
+        </div>
+        <div>
+            <div class="cajaIdioma">Idioma</div>
+            <div class="tabla-informacion__caja">
+                <div class="botonIdioma"><button id="es">ESP</button></div>
+                <div class="botonIdioma"><button id="en">ENG</button></div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="juego">
+        <div id="container">
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+        </div>
+        <aside id="descripcion">
+            Bienvenido al juego de adivinanzas de cartas de kebabs. Instrucciones: deberá de elegir parejas de cartas para adivinarlas todas. Al hacer click en dos cartas y que no coincidan deberá esperar a que desparezcan para poder seleccionar otras y ganar. Si
+            su número de errores es menor al del jugador con mejor puntuación, su nombre aparecerá en la parte superior y se guardará en una cookie.
+
+        </aside>
+    </div>
+
+
+    <footer>
+        <br> Diego Sánchez-Rojo --- Rufino Serrano Cañas
+        <br> KebaCard
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
