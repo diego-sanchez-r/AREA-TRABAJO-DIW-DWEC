@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KebaCard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <audio class="bomba">
+        <source src="./sonido/sonido-bomba.mp3" type="audio/mp3">
+    </audio>
+    <audio class="victoria">
+        <source src="./sonido/sonido-victoria.mp3" type="audio/mp3">
+    </audio>
+    <audio class="error">
+        <source src="./sonido/sonido-error.mp3" type="audio/mp3">
+    </audio>
+    <audio class="cambiar">
+        <source src="./sonido/sonido-cambio.mp3" type="audio/mp3">
+    </audio>
+    <header>
+        <img src="images/logo.png" id="logo">
+        <h1 id="tituloPc">KebaCard</h1><h1 id="tituloMovil">KC</h1>
+        <div></div>
+    </header>
+    <div class="tabla-informacion">
+        <div class="tabla-informacion__caja" id="punt">
+            <div>
+                <div id="nick"></div>
+            </div>
+            <div>
+                <div><span class="caja" id="puntuacionTexto">Puntuación</span></div>
+                <div><span class="contador" id="contador-puntos">0</span></div>
+            </div>
+            <div>
+                <div class="caja" id="errorTexto">Errores</div>
+                <div><span class="contador" id="contador-errores">0</span></div>
+            </div>
+        </div>
+        <div class="tabla-informacion__caja" id="top">
+            <div>
+                <div class="caja" id="top-player">Top player</div>
+                <div class="contador" id="ranking-jugador"></div>
+            </div>
+            <div>
+                <div class="caja" id="puntuacionTextoRanking">Puntuación</div>
+                <div class="contador" id="ranking-puntuacion"></div>
+            </div>
+        </div>
+        <div id="idioma">
+            <div class="cajaIdioma" id="idiomaTexto">Idioma</div>
+            <div class="tabla-informacion__caja">
+                <div class="botonIdioma"><button id="es">ES</button></div>
+                <div class="botonIdioma"><button id="en">EN</button></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="barra-informativa"></div>
+
+    <br>
+    <div class="juego">
+        <div id="container">
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            <div class="celda"></div>
+            
+            <div id="invisible"></div>
+        </div>
+
+        <aside id="descripcion">
+        </aside>
+    </div>
+
+    <footer>
+        <br> Diego Sánchez-Rojo --- Rufino Serrano Cañas
+        <br> KebaCard
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

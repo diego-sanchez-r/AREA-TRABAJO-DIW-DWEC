@@ -26,13 +26,12 @@ function loadJSON(json) {
 
     let elements = elementosLangJSON[lang];
 
-    document.getElementById('puntuacionTexto').textContent = elements["score"];
-    document.getElementById('puntuacionTextoRanking').textContent = elements["score"];
-    document.getElementById('errorTexto').textContent = elements["errors"];
-    document.getElementById('top-player').textContent = elements["top_player"];
-    document.getElementById('idiomaTexto').textContent = elements["language"];
-
-    document.getElementById('descripcion').textContent = elements["game_description"];
+    puntuacionTexto.text(elements["score"]);
+    puntuacionTextoRanking.text(elements["score"]);
+    errorTexto.text(elements["errors"]);
+    top_player.text(elements["top_player"]);
+    idiomaTexto.text(elements["language"]);
+    descripcion.text(elements["game_description"]);
 }
 
 function barraInformativaTexto(estado) {
@@ -54,7 +53,7 @@ function barraInformativaTexto(estado) {
 
             let elements = elementosLangJSON[lang];
 
-            barra_informativa.textContent = elements[estado];
+            barra_informativa.text(elements[estado]);
         }
     };
 
