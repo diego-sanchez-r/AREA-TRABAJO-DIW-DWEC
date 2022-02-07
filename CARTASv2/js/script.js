@@ -26,6 +26,8 @@ let sonidoError = $('.error')[0];
 let sonidoVictoria = $('.victoria')[0];
 let sonidoBomba = $('.bomba')[0];
 
+
+
 $(document).ready(function() {
 // Pedimos el nombre del jugador
 let pedirNombre = () => {
@@ -146,7 +148,7 @@ function comprobarRanking() {
 }
 
 function comprobarPuntuacion() {
-    if (parseInt(contador_puntos.text()) == 6) {
+    if (parseInt(contador_puntos.text()) == 7) {
         // Cambiamos el estado de la barra informativa
         barraInformativaTexto("message_victory");
 
@@ -203,6 +205,7 @@ function comprobarCartas(carta) {
 
             // Sumamos el contador y restablecemos el juego
             contador_puntos.text((parseInt(contador_puntos.text()) + 1));
+
 
             // Cambia el contenido de la barra informativa
             barraInformativaTexto("message_success");
