@@ -185,7 +185,7 @@ footer {
     background: linear-gradient(90deg, rgba(5,1,38,1) 16%, rgba(9,85,121,1) 65%, rgba(31,61,29,1) 100%);
 }
 
-#barra-informativa {
+/*#barra-informativa {
     @include flexCentrado();
 
     width: 92%;
@@ -196,7 +196,7 @@ footer {
     background-color: #1f3d1d;
     color: $verde-clarito;
     font-size: 20px;
-}
+}*/
 
 #tituloMovil{
     display: none;

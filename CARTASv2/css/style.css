@@ -97,6 +97,15 @@ header {
   border-radius: 50px;
 }
 
+#invisible {
+  display: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  z-index: 1;
+  width: 80%;
+  height: 70%;
+}
+
 #nick {
   display: flex;
   align-items: center;
@@ -156,31 +165,20 @@ footer {
   background: linear-gradient(90deg, #050126 16%, #095579 65%, #1f3d1d 100%);
 }
 
-#barra-informativa {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 92%;
-  height: 3em;
-  border: solid 2px black;
-  margin: 2em;
-  border-radius: 15px;
-  background-color: #1f3d1d;
-  color: #ABBC85;
-  font-size: 20px;
-}
+/*#barra-informativa {
+    @include flexCentrado();
 
+    width: 92%;
+    height: 3em;
+    border: solid 2px black;
+    margin: 2em;
+    border-radius: $borde-grande;
+    background-color: #1f3d1d;
+    color: $verde-clarito;
+    font-size: 20px;
+}*/
 #tituloMovil {
   display: none;
-}
-
-#invisible {
-  display: none;
-  background-color: rgba(0, 0, 0, 0);
-  position: absolute;
-  z-index: 1;
-  width: 80%;
-  height: 70%;
 }
 
 @media only screen and (max-width: 1024px) {
