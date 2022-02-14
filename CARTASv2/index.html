@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--Font Awesome-->    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <title>KebaCard</title>
 
     <link rel="stylesheet" href="css/style.css">
@@ -19,6 +18,32 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ABBC85;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="images/logo.png" id="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-1 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Juego</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="informacion.html">Información <i class="fa-solid fa-circle-info"></i></a>
+                    </li>
+                </ul>
+                <form class="d-flex" onsubmit="return false">
+                    <button id="es" class="btn btn-outline-success">ES</button>
+                    <button id="en" class="btn btn-outline-success">EN</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
     <audio class="bomba">
         <source src="./sonido/sonido-bomba.mp3" type="audio/mp3">
     </audio>
@@ -31,95 +56,121 @@
     <audio class="cambiar">
         <source src="./sonido/sonido-cambio.mp3" type="audio/mp3">
     </audio>
-    <header>
-        <img src="images/logo.png" id="logo">
-        <h1 id="tituloPc">KebaCard</h1><h1 id="tituloMovil">KC</h1>
-        <div></div>
-    </header>
-        <table class="table table-striped" class="tabla-informacion__caja" id="punt" id="idioma">
-            <tr>
-                <td class="table-primary">Diego2 HOLAAAA RUFINO</td>
-                <td class="table-success" id="puntuacionTexto">Puntuación</td>
-                <td class="table-danger"><div id="errorTexto">Errores</div></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="table-success"  id="top-player">Top player</td>
-                <td class="table-danger"><div id="puntuacionTextoRanking">Puntuación</div></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="table-success" id="idiomaTexto" >Idioma</td>
-            </tr>
-            <tr>
-                <td class="table-primary"></td>
-                <td class="table-success" id="contador-puntos">0</td>    
-                <td class="table-danger"><div><span id="contador-errores">0</span></div></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="table-success" id="ranking-jugador">0</td>    
-                <td class="table-danger"><div><span id="ranking-puntuacion">0</span></div></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="table-success" class="botonIdioma"><button id="es" class="btn btn-outline-success">ES</button><button id="en" class="btn btn-outline-success">EN</button></td>    
-            </tr>   
-        </table>
-        Progreso: 
-        <div class="progress">  
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
 
-    <div id="barra-informativa" class="alert alert-success"><br></div>
+    <main>
+        <div class="row">
+            <div class="col-12 col-sm-3 p-4">
+                <div class="col-12 mb-3">
+                    <button class="btn btn-primary p-4" id="boton-comenzar" data-estado="start">▶ Comenzar juego </button>
+                   
+                </div>
 
+                <div class="col-12 mb-3">
+                    <button class="btn btn-warning p-2" ><i class="fa-solid fa-eye"></i> <span id="mostrarTodasLasCartas">Mostrar</span> </button>
+                </div>
 
+                <div class="col-12">
+                    <table class="table table-striped mt-5">
+                        <tr>
+                            <td class="table-primary" id="nick" colspan="2">Nombre Jugador <i class="fa-solid fa-user"></i> </td>
+                        </tr>
 
-    <br>
-    <div class="juego">
-        <div id="container">
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            <div class="celda"></div>
-            
-            <div id="invisible"></div>
+                        <tr>
+                            <td class="table-success" ><i class="fa-solid fa-check"></i> <span id="contador-puntos"> 0</span></td>
+                            <td class="table-danger" ><i class="fa-solid fa-xmark"></i> <span id="contador-errores"> 0</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="table-warning" colspan="2">Ranking <i class="fa-solid fa-trophy"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="table-warning" id="ranking-jugador">....</td>
+                            <td class="table-success"><i class="fa-solid fa-check"></i> <span id="ranking-puntuacion">0</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-11 col-sm-9 p-4">
+
+                <div id="barra-informativa" class="alert alert-success"><i class="fa-solid fa-message"></i></div>
+                <i class="fa-solid fa-0"></i>/<i class="fa-solid fa-7"></i>
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+                <div id="container" class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 rowc">
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div class="celda mx-2 my-2 rowc"></div>
+                    <div id="invisible"></div>
+                </div>
+            </div>
         </div>
 
-        <aside id="descripcion">
-        </aside>
-    </div>
+        <!-- Modal -->
+        <div id="modal" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">KebaCard</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <span id="textoIntroduceNombre">Introduce tu nombre:</span> <input type="text"
+                                id="nombreModal">
+                        </p>
+                        <p>
+                            <span id="textoSeleccionaDificultad">Selecciona una dificultad:</span><br>
+                            <input type="radio" name="dificultad" id="facil" value="facil" checked> <span
+                                id="textoFacil">Fácil</span><br>
+                            <input type="radio" name="dificultad" id="normal" value="normal"> Normal <br>
+                            <input type="radio" name="dificultad" id="dificil" value="difícil"> <span
+                                id="textoDificil">Difícil</span><br>
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="textoBotonCancelar">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="comenzarModal">Comenzar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <footer>
         <br> Diego Sánchez-Rojo --- Rufino Serrano Cañas
         <br> KebaCard
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
     <script src="js/ajax.js"></script>
     <script src="js/script.js"></script>
 </body>

@@ -29,9 +29,20 @@ function loadJSON(json) {
     puntuacionTexto.text(elements["score"]);
     puntuacionTextoRanking.text(elements["score"]);
     errorTexto.text(elements["errors"]);
-    top_player.text(elements["top_player"]);
-    idiomaTexto.text(elements["language"]);
     descripcion.text(elements["game_description"]);
+    mostrarTodasLasCartas.text(elements["show_button"]);
+    textoIntroduceNombre.text(elements["model_name"]);
+    textoSeleccionaDificultad.text(elements["modal_select"]);
+    textoFacil.text(elements["modal_easy"]);
+    textoDificil.text(elements["modal_challenging"]);
+    textoBotonCancelar.text(elements["modal_close"]);
+    boton_comenzar_modal.text(elements["modal_start"]);
+
+    if (boton_comenzar.attr("data-estado") == "start") {
+        boton_comenzar.text(elements["start_game"]);
+    } else {
+        boton_comenzar.text(elements["restart_game"]);
+    }
 }
 
 function barraInformativaTexto(estado) {
