@@ -1,65 +1,35 @@
-let puntuacionTexto = $("#puntuacionTexto");
-let puntuacionTextoRanking = $("#puntuacionTextoRanking");
-
-let errorTexto = $("#errorTexto");
-let descripcion = $("#descripcion");
-
-let botonEsp = $("#es");
-let botonEng = $("#en");
-
-let barra_informativa = $("#barra-informativa");
-
-let contador_puntos = $("#contador-puntos");
-let contador_errores = $("#contador-errores");
-
-let errores = 0;
-let puntos = 0;
-
-let nombre = "";
-let nick = $("#nick");
-
-let caja_invisible = $("#invisible")[0];
-
-let sonidoCambiarCarta = $('.cambiar')[0];
-let sonidoError = $('.error')[0];
-let sonidoVictoria = $('.victoria')[0];
-let sonidoBomba = $('.bomba')[0];
-
-let boton_comenzar = $("#boton-comenzar");
-
-let barraProgreso = $('.progress-bar')[0];
-
-let ventana_modal = $("#modal");
-
-let boton_comenzar_modal = $("#comenzarModal");
-let nombre_modal = $("#nombreModal");
-
-let mostrarTodasLasCartas = $('#mostrarTodasLasCartas');
-
-let listaDeCartasAcertadas = [];
-
-let pulsadoBotonMostrar = false;
-
-let textoIntroduceNombre = $('#textoIntroduceNombre');
-
-let textoSeleccionaDificultad = $('#textoSeleccionaDificultad');
-
-let textoFacil = $('#textoFacil');
-
-let textoDificil = $('#textoDificil');
-
-let textoBotonCancelar = $('#textoBotonCancelar');
-
-let boton_facil = $("#facil");
-let boton_normal = $("#normal");
-let boton_dificil = $("#dificil");
-
-let dificultad = "";
-
 $(document).ready(function() {
+    // Anima las celdas
+    $(".celda").fadeTo(800, 1);
+
+    // Carga la lista de mejores jugadores al cargar la página
+    cargarRanking();
+
+    function comprobarDificultad() {
+        // Si la dificultad es fácil, ponemos disponible el botón de mostrar cartas y no hay bomba
+        if (boton_facil.is(':checked')) {
+            dificultad = "facil";
+            botonMostrarCartas.attr('disabled', null);
+
+            pulsadoBotonMostrar = false;
+            listaDeCartasAcertadas = [];
+
+            botonMostrarCartas.click(mostrarCartas);
+
+            if ($(".celda").length == 15) {
+                $("#container").find('div:first').remove();
+            }
+        } else if (boton_normal.is(':checked')) {
+            dificultad = "normal";
+        } else if (boton_dificil.is(':checked')) {
+            dificultad = "dificil";
+        } else if (boton_leyenda.is(":checked")) {
+            dificultad = "leyenda";
+        }
+    }
 
     // Restablece los datos
-    let restablecer = () => {
+    function restablecer() {
         // Celdas DIV del DOM
         celdaImagen1 = 0;
         celdaImagen2 = 0;
@@ -69,18 +39,48 @@ $(document).ready(function() {
         kebabValor2 = 0;
     }
 
-    let comenzarJuego = () => {
-        if (boton_facil.is(':checked')) {
-            dificultad = "facil";
-        } else if (boton_normal.is(':checked')) {
-            dificultad = "normal";
-        } else if (boton_dificil.is(':checked')) {
-            dificultad = "dificil";
+    function mostrarCartas() {
+        let arrayCartas = $('.celda');
+
+        // Deshabilitamos el botón de mostrar
+        botonMostrarCartas.attr('disabled', 'disabled');
+
+        // Si no se ha pulsado el botón, le damos la vuelta a todas las cartas
+        // salvo las que hemos acertado
+        if (!pulsadoBotonMostrar) {
+            pulsadoBotonMostrar = true;
+
+            caja_invisible.style.display = "block";
+
+            // Damos la vuelta a todas las cartas
+            for (i = 0; i < arrayCartas.length; i++) {
+                arrayCartas[i].innerHTML = "<img src='images/kebabs/kebab" + $(arrayCartas[i]).data('valor') + ".jpg' class='imagen'>";
+            }
+
+            // Detenemos la página para ver las cartas y les damos la vuelta de nuevo
+            window.setTimeout(() => {
+                for (i = 0; i < arrayCartas.length; i++) {
+                    if (!listaDeCartasAcertadas.includes(arrayCartas[i])) {
+                        arrayCartas[i].innerHTML = "";
+                    }
+                }
+
+                // Quita la caja invisible
+                caja_invisible.style.display = "none";
+            }, 2000);
         }
+    }
+
+    function comenzarJuego() {
+        // Quitamos los listeners a todas las cartas
+        $(".celda").off("click");
+
+        // Comprobamos la dificultad
+        comprobarDificultad();
 
         // Cogemos el nombre del jugador y la dificultad
         nombre = nombre_modal.val();
-        nick.text(nombre);
+        nick.html(nombre);
 
         // Cerramos la ventana modal
         ventana_modal.modal('hide');
@@ -96,43 +96,61 @@ $(document).ready(function() {
 
         // Restablecemos los DIVs y cambiamos el texto de los botones
         boton_comenzar.attr("data-estado", "started");
-        loadLanguage();
+        //loadLanguage();
         quitarSombraATodosLosDivs();
 
         anadirListenerYDataACartas();
 
         restablecerBarra();
+        /*$("#ranking-jugador").text(localStorage.getItem("Jugador"));
+        $("#ranking-puntuacion").text(localStorage.getItem("Ranking"));*/
+    }
 
-        // Le aplica el texto a los elementos del DOM las variables guardadas en web storage
-        $("#ranking-jugador").text(localStorage.getItem("Jugador"));
-        $("#ranking-puntuacion").text(localStorage.getItem("Ranking"));
+    function bombaPulsada(carta) {
+        // Sonido de bomba
+        stopSonidoError();
+        stopSonidoVictoria();
+        stopSonidoCambio();
 
-        let arrayCartas = $('.celda');
+        sonidoBomba.play();
 
-        if (dificultad == "facil") {
-            mostrarTodasLasCartas.click(function() {
-                mostrarTodasLasCartas.attr('disabled', 'disabled');
-                if (!pulsadoBotonMostrar) {
-                    pulsadoBotonMostrar = true;
-                    for (i = 0; i < arrayCartas.length; i++) {
-                        arrayCartas[i].innerHTML = "<img src='images/kebabs/kebab" + $(arrayCartas[i]).data('valor') + ".jpg' class='imagen'>";
-                    }
-                    window.setTimeout(() => {
-                        for (i = 0; i < arrayCartas.length; i++) {
-                            if (!listaDeCartasAcertadas.includes(arrayCartas[i])) {
-                                arrayCartas[i].innerHTML = "";
-                            }
-                        }
-                    }, 2000);
-                }
-            });
-        }
+        // Muestra la ventana modal de fallo
+        modal_bomba.modal("show");
+
+        // Al cerrar el botón se resetea el juego
+        $("#modal_bomba_boton_cerrar").click(function() {
+            // Cerramos la ventana modal
+            modal_bomba.modal("hide");
+
+            // Dejamos que se muestre la carta bomba
+            carta.innerHTML = "";
+
+            // Restablecemos los valores
+            restablecer();
+
+            // Reseteamos los puntos
+            puntos = 0;
+            contador_puntos.text("0");
+
+            // Reseteamos el juego
+            $(".celda").off();
+
+            quitarSombraATodosLosDivs();
+
+            anadirListenerYDataACartas();
+
+            restablecerBarra();
+        });
     }
 
     function abrirVentanaModal() {
+        // Cierra la ventana modal de victoria
+        modal_victoria.modal('hide');
+
         // Abre la ventana y añade el listener de comenzar
         ventana_modal.modal('show');
         nombre_modal.focus();
+
         boton_comenzar_modal.click(comenzarJuego);
     }
 
@@ -159,8 +177,6 @@ $(document).ready(function() {
 
         $(carta).fadeIn(200);
 
-        //$(carta).fadeIn();
-
         if (kebabValor2 > 0) {
             kebabValor1 = 0;
             kebabValor2 = 0;
@@ -172,6 +188,11 @@ $(document).ready(function() {
         } else {
             kebabValor2 = kebab_pulsado;
         }
+
+        // Comprobamos que se ha pulsado la carta bomba
+        if (kebab_pulsado == 8) {
+            bombaPulsada(carta);
+        }
     }
 
     function detenPagina() {
@@ -182,20 +203,34 @@ $(document).ready(function() {
 
             // Restablecemos los valores
             restablecer();
-
-            // Suma del contador de errores
-            errores++;
+            
             contador_errores.text(errores);
 
             // Quita la caja invisible
             caja_invisible.style.display = "none";
         }, 500);
+
+        // Suma del contador de errores
+        errores++;
+
+        // Comprobamos la dificultad leyenda y los errores acumulados
+        if (dificultad == "leyenda" && errores == 2) {
+            // Muestra la ventana modal de derrota
+            modal_leyenda.modal("show");
+
+            // Al cerrar la ventana se restablece el juego
+            $("#modal_leyenda_boton_cerrar").click(function() {
+                modal_leyenda.modal("hide");
+                comenzarJuego();
+            });
+        }
     }
 
     function anadeSombraYQuitaListener(celdaImagen1, celdaImagen2) {
         // A cada celda le añadimos la sombra y le quitamos el listener de click
         listaDeCartasAcertadas.push(celdaImagen1);
         listaDeCartasAcertadas.push(celdaImagen2);
+
         celdaImagen1.classList.add("sombra");
         $(celdaImagen1).off('click');
         celdaImagen2.classList.add("sombra");
@@ -211,23 +246,14 @@ $(document).ready(function() {
         }
     }
 
-    function comprobarRanking() {
-        if (errores < parseInt(localStorage.getItem("Ranking")) || localStorage.getItem("Ranking") == null) {
-            localStorage.setItem("Ranking", errores);
-            localStorage.setItem("Jugador", nombre);
-        }
-    }
-
-    function restablecerBarra() {
-        barraProgreso.style.width = "0%";
-    }
-
     function comprobarPuntuacion() {
         if (puntos == 7) {
             // Cambiamos el estado de la barra informativa
             barraInformativaTexto("message_victory");
 
-            alert("¡Felicidades! Has ganado el juego. Tuviste un total de " + contador_errores.text() + " errores");
+            // Muestra el mensaje de victoria
+            modal_victoria.modal('show');
+            $(modal_contenido).text("¡Felicidades! Has ganado el juego. Tuviste un total de " + errores + " errores");
 
             //Ponemos la barra de progeso al 0
             restablecerBarra();
@@ -235,33 +261,12 @@ $(document).ready(function() {
             // Si el número de errores es menor que el de el récord o la cookie no existe, guardamos los valores
             comprobarRanking();
 
-            // Vuelve a comenzar el juego
-            abrirVentanaModal();
+            // Comienza el juego al cerrar la ventana
+            $("#modal_victoria_boton_cerrar").click(function() {
+                // Vuelve a comenzar el juego
+                abrirVentanaModal();
+            })
         }
-    }
-
-    function cambiaBarraProgreso(n_puntos) {
-        // Calculamos el porcentaje según el número de puntos
-        let progreso = Math.round(n_puntos / 7 * 100) + "%";
-
-        // Le aplicamos a la barra el porcentaje
-        barraProgreso.style.width = progreso;
-        $(barraProgreso).text(n_puntos + " / 7")
-    }
-
-    function stopSonidoCambio() {
-        sonidoCambiarCarta.pause();
-        sonidoCambiarCarta.currentTime = 0;
-    }
-
-    function stopSonidoError() {
-        sonidoError.pause();
-        sonidoError.currentTime = 0;
-    }
-
-    function stopSonidoVictoria() {
-        sonidoVictoria.pause();
-        sonidoVictoria.currentTime = 0;
     }
 
     function comprobarCartas(carta) {
@@ -326,12 +331,44 @@ $(document).ready(function() {
         }
     }
 
+    function mostrarCartaBomba(carta_bomba) {
+        let tiempo_que_aparece_la_bomba = 0;
+
+        // Según la dificultad cambia el tiempo que carta la bomba en aparecer
+        switch (dificultad) {
+            case "normal":
+                tiempo_que_aparece_la_bomba = 2000;
+                break;
+            case "leyenda":
+                tiempo_que_aparece_la_bomba = 1000;
+                break;
+        }
+
+        // Aparece la carta bomba
+        $(carta_bomba).html("<img src='images/kebabs/kebab8.jpg' class='imagen'>");
+        invisible.style.display = "block";
+
+        // Desaparece la carta bomba tras el tiempo establecido
+        window.setTimeout(function() {
+            $(carta_bomba).html("");
+            invisible.style.display = "none";
+        }, tiempo_que_aparece_la_bomba);
+    }
+
     function establecerValor(div, lista) {
         // Genera un número aleatorio entre lo que hay en el array lista
         let index = Math.floor(Math.random() * lista.length);
 
+        let num_aleatorio = lista[index];
+
         // Le aplicamos un valor a la celda con el elemento aleatorio de la lista
-        $(div).data('valor', lista[index]);
+        $(div).data('valor', num_aleatorio);
+
+        // Si el número aleatorio es el 8 (carta bomba) y la dificultad es la normal
+        // o la leyenda se dará la vuelta durante un tiempo estimado
+        if (num_aleatorio == 8 && (dificultad == "normal" || dificultad == "leyenda")) {
+            mostrarCartaBomba($(div));
+        }
 
         // Quitamos de la lista el elemento
         lista.splice(index, 1);
@@ -340,20 +377,23 @@ $(document).ready(function() {
     // Recorremos el array para añadirle un listener a todas las celdas y les establecemos un valor de DATA
     function anadirListenerYDataACartas() {
         // Lista que contiene los valores (se repiten porque tiene que salir el mismo número 2 veces)
-        let lista = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8];
+        let lista = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+
+        // Si la dificultad es normal, difícil o leyenda añadimos una celda nueva y añadimos el número 8 a la lista (carta bomba)
+        if (dificultad != "facil") {
+            if ($(".celda").length == 14) {
+                $("#container").append('<div class="celda mx-2 my-2 rowc"></div>');
+                $(".celda").fadeTo(800, 1);
+            }
+
+            lista.push(8);
+        }
 
         for (let i = 0; i < $(".celda").length; i++) {
             establecerValor($(".celda")[i], lista);
         }
 
         $(".celda").click(comprobarCartas);
-    }
-
-    function cambiarTextoIdioma(boton) {
-        // Guarda en el web storage el idioma
-        localStorage.setItem("idioma", boton.currentTarget.id);
-
-        loadLanguage();
     }
 
     // Les ponemos un listener a los botones de español e inglés
